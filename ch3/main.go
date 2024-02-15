@@ -35,8 +35,37 @@ func main() {
 
 	num := copy(y, x)
 	fmt.Println(x, y, num)
+
+	var m = make(map[string]int, 10)
+	fmt.Println(m == nil)
+	var a = make([]int, 0)
+	fmt.Println(a)
+
+	type firstPerson struct {
+		name string
+		age  int
+	}
+
+	type secondPerson struct {
+		name string
+		age  int
+	}
+
+	type thirdPerson struct {
+		namee string
+		age   int
+	}
+
+	fp := firstPerson{}
+	sp := secondPerson{}
+	// tp := thirdPerson{}
+
+	fp = firstPerson(sp)
+	// fp = firstPerson(tp)
+	fmt.Println(fp)
 	exercise1()
 	exercise2()
+	exercise3()
 }
 
 func exercise1() {
@@ -58,4 +87,31 @@ func exercise2() {
 	var s = string(runes[3])
 
 	fmt.Println(s)
+}
+
+func exercise3() {
+	// Write a program that defines a struct called Employee with three fields: firstName, lastName, and id. The first two fields are of type string, and the last field (id) is of type int. Create three instances of this struct using whatever values you’d like. Initialize the first one using the struct literal style without names, the second using the struct literal style with names, and the third with a var declaration. Use dot notation to populate the fields in the third struct. Print out all three structs.
+
+	type Employee struct {
+		firstName string
+		lastName  string
+		id        int
+	}
+
+	e1 := Employee{
+		id: 1,
+	}
+
+	e2 := Employee{
+		firstName: "Jing En",
+		lastName:  "Cheam",
+	}
+
+	var e3 = Employee{}
+
+	e3.firstName = "Chia Wei"
+	e3.lastName = "Tan"
+	e3.id = 3
+
+	fmt.Println(e1, e2, e3)
 }
