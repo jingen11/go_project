@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"sort"
 	"strconv"
@@ -214,19 +215,24 @@ func fileLen(s string) (int, error) {
 		return 0, error
 	}
 
+	defer f.Close()
+
 	b := make([]byte, 2048)
+	total := 0
 
-	count, error := f.Read(b)
+	for {
+		count, error := f.Read(b)
+		total += count
 
-	if error != nil {
-		return 0, error
+		if error != nil {
+			if error != io.EOF {
+				return 0, error
+			}
+			break
+		}
 	}
 
-	defer func() {
-		f.Close()
-	}()
-
-	return count, nil
+	return total, nil
 }
 
 func prefixer(greet string) func(string) string {
